@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CV23_Console", "CV23_Consol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CV23_Test", "CV23_Test\CV23_Test.csproj", "{522EFCE9-0B5D-47F8-BABF-7B851125CCBC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B6FC9FAB-7C54-4EBE-A748-109754A9AA37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1BB2BB4A-0A87-4DE7-A71B-F0F8035536F0} = {B6FC9FAB-7C54-4EBE-A748-109754A9AA37}
+		{522EFCE9-0B5D-47F8-BABF-7B851125CCBC} = {B6FC9FAB-7C54-4EBE-A748-109754A9AA37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1491AD2-EC85-461F-892F-BFB236A8DD11}
