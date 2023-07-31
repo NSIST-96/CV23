@@ -1,4 +1,7 @@
-﻿using CV23.ViewModels.Base;
+﻿using CV23.Infrostructure.Commands;
+using CV23.ViewModels.Base;
+using System.Windows;
+using System.Windows.Input;
 
 namespace CV23.ViewModels
 {
@@ -29,5 +32,30 @@ namespace CV23.ViewModels
         #endregion
 
         #endregion
+
+        #region Команды
+
+        #region Закрыть окно прилоения
+        public ICommand CloseApplicationCommand { get; }
+
+        private bool CanCloseApplicationCommandExecute(object p) => true;
+        private void OnCloseApplicationCommandExecuted(object p) 
+        {
+            Application.Current.Shutdown();
+        }
+        #endregion
+
+
+        #endregion
+
+        public MainWindowViewModel()
+        {
+
+            #region Комманды
+
+            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            
+            #endregion
+        }
     }
 }
