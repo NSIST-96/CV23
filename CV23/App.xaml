@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:CV23"
              StartupUri="Views/Windows/MainWindow.xaml">
     <Application.Resources>
-         
+        <!--можно вставить сюда комманды горячих клавиш для экономии ресурсов-->
+        <!--<Window.InputBindings>
+            <KeyBinding Modifiers="Ctrl" Key="Q" Command="{Binding CloseApplicationCommand}"/>
+        </Window.InputBindings>-->
     </Application.Resources>
 </Application>
