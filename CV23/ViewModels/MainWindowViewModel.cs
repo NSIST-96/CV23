@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Packaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CV23.ViewModels.Base;
+﻿using CV23.ViewModels.Base;
 
 namespace CV23.ViewModels
 {
