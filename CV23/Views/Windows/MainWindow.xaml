@@ -6,21 +6,29 @@
         xmlns:local="clr-namespace:CV23"
         xmlns:vm="clr-namespace:CV23.ViewModels"
         xmlns:cmd="clr-namespace:CV23.Infrostructure.Commands"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="Q" Command="{Binding CloseApplicationCommand}"/>
+    </Window.InputBindings>
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
+    </Window.Resources>
     <DockPanel>
         
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
                 <!--<MenuItem Header="Выход" Command="{Binding CloseApplicationCommand}"/>-->
-                <MenuItem Header="Выход">
+                <MenuItem Header="Выход" Command="{StaticResource CloseApplicationCommand}"/>
+                <!--<MenuItem Header="Выход">
                     <MenuItem.Command>
                         <cmd:CloseApplicationCommand/>
                     </MenuItem.Command>
-                </MenuItem>
+                </MenuItem>-->
             </MenuItem>
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе"/>
@@ -37,7 +45,14 @@
         </StatusBar>
         
         <TabControl>
-            <TabItem Header="Вкладка 1">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Regular_File" Height="12" 
+                                         Margin="2,0" Foreground="Red"/>
+                        <TextBlock Text="Вкладка 1"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="63*"/>
@@ -53,7 +68,12 @@
                                RadiusX="5" RadiusY="7"/>
                     <Ellipse Grid.Row="0" Grid.Column="1"
                                Fill="Red" Stroke="Blue"
-                               StrokeThickness="3"/>
+                               StrokeThickness="3">
+                        <Ellipse.InputBindings>
+                            <MouseBinding Command="{Binding CloseApplicationCommand}"
+                                          MouseAction="LeftDoubleClick"/>
+                        </Ellipse.InputBindings>
+                    </Ellipse>
                     <GridSplitter Grid.Column="0" Grid.RowSpan="2"
                                   HorizontalAlignment="Right"
                                   Width="1"/> 
