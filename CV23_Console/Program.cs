@@ -26,16 +26,36 @@ namespace CV23_Console
             {
                 var line = data_reader.ReadLine();
                 if (string.IsNullOrWhiteSpace(line)) continue;
-                yield return line;
+                line.Replace("Bonaire,", "");
+                line.Replace("Helena,", "Helena -");
+                yield return line.Replace("Korea,", "Korea -");
             }
         }
 
+        /// <summary> Метод получения всех дат (первая строка файла) </summary>
+        /// <returns> Массив дат</returns>
         private static DateTime[] GetDates() => GetDataLines()
             .First()
             .Split(',')
             .Skip(4)
             .Select(s => DateTime.Parse(s, CultureInfo.InvariantCulture))
             .ToArray();
+
+        private static IEnumerable<(string Country, string Province, int[] Counts)> GetData()
+        {
+            var lines = GetDataLines()
+                .Skip(1)
+                .Select(line => line.Split(','));
+
+            foreach(var row in lines)
+            {
+                var province = row[0].Trim();
+                var country_name = row[1].Trim(' ','"');
+                var counts = row.Skip(5).Select(int.Parse).ToArray();
+
+                yield return (country_name, province, counts);
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -44,9 +64,14 @@ namespace CV23_Console
             //var responce = client.GetAsync(data_url).Result;
             //var csv_str = responce.Content.ReadAsStringAsync().Result;
 
-            DateTime[] dates = GetDates();
+            //DateTime[] dates = GetDates();
 
-            Console.WriteLine(string.Join("\r\n", dates));
+            //Console.WriteLine(string.Join("\r\n", dates));
+
+            var russia_data = GetData()
+                .First(v => v.Country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
+
+            Console.WriteLine(string.Join("\r\n", GetDates().Zip(russia_data.Counts, (date, count) => $"{date} - {count}")));
 
             Console.ReadLine();
         }
