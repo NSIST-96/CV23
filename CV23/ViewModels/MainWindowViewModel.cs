@@ -1,5 +1,8 @@
 ﻿using CV23.Infrostructure.Commands;
+using CV23.Models;
 using CV23.ViewModels.Base;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,9 +12,21 @@ namespace CV23.ViewModels
     {
         #region Свойства
 
+        #region TestDataPoints - Текстовый набор данных для визуализации графиков
+        /// <summary> Текстовый набор данных для визуализации графиков</summary>
+        private IEnumerable<DataPoint> _TestDataPoints;
+        /// <summary> Текстовый набор данных для визуализации графиков</summary>
+        public IEnumerable<DataPoint> TestDataPoints
+        {
+            get => _TestDataPoints;
+            set => Set(ref _TestDataPoints, value);
+        }
+        #endregion
+
         #region Title: string - Заголовок окна
         /// <summary>Заголовок окна</summary>
         private string _Title = "CV23";
+        /// <summary>Заголовок окна</summary>
         public string Title
         {
             get => _Title;
@@ -54,8 +69,19 @@ namespace CV23.ViewModels
             #region Комманды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
-            
+
             #endregion
+
+            var data_points = new List<DataPoint>((int)(360 / 0.1));
+            for(var x = 0d; x< 360; x+= 0.1)
+            {
+                const double to_rad = Math.PI / 180;
+                var y = Math.Sin(x * to_rad);
+
+                data_points.Add(new DataPoint { XValue = x, YValue = y });
+            }
+
+            TestDataPoints = data_points;
         }
     }
 }
