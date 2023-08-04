@@ -12,7 +12,19 @@ namespace CV23.ViewModels
     {
         #region Свойства
 
-        #region TestDataPoints - Текстовый набор данных для визуализации графиков
+        #region _SelectedPageIndex : int - номер выбранной вкладки
+
+        private int _SelectedPageIndex = 0;
+
+        public int SelectedPageIndex
+        {
+            get => _SelectedPageIndex;
+            set => Set(ref _SelectedPageIndex, value);
+        }
+
+        #endregion
+
+        #region TestDataPoints : IEnumerable - Текстовый набор данных для визуализации графиков
         /// <summary> Текстовый набор данных для визуализации графиков</summary>
         private IEnumerable<DataPoint> _TestDataPoints;
         /// <summary> Текстовый набор данных для визуализации графиков</summary>
@@ -50,7 +62,7 @@ namespace CV23.ViewModels
 
         #region Команды
 
-        #region Закрыть окно прилоения
+        #region CloseApplicationCommand
         public ICommand CloseApplicationCommand { get; }
 
         private bool CanCloseApplicationCommandExecute(object p) => true;
@@ -60,6 +72,17 @@ namespace CV23.ViewModels
         }
         #endregion
 
+        #region ChangeTabIndexCommand
+        public ICommand ChangeTabIndexCommand { get; }
+
+        private bool CanChangeTabIndexCommandExecute(object p) => _SelectedPageIndex >= 0;
+
+        private void OnChangeTabIndexCommandExecuted(object p)
+        {
+            if (p is null) return;
+            SelectedPageIndex += Convert.ToInt32(p);
+        }
+        #endregion
 
         #endregion
 
@@ -69,6 +92,7 @@ namespace CV23.ViewModels
             #region Комманды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
 
             #endregion
 
